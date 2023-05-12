@@ -8,10 +8,7 @@ import lombok.NonNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class CalculateHighestFrequencyForWordBody {
-    @NonNull
-    private String text;
-
+public class CalculateHighestFrequencyForWordBody extends CalculateHighestFrequencyBody {
     @NonNull
     private String word;
 }

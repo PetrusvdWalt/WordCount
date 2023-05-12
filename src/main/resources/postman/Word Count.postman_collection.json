@@ -1,0 +1,854 @@
+{
+	"info": {
+		"_postman_id": "49345019-8fd1-4f07-84e8-5381a800633a",
+		"name": "Word Count",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Word Frequency Controller",
+			"item": [
+				{
+					"name": "Calculate Highest Frequency",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"randomsharedprice\", pm.variables.replaceIn(\"{{$randomPrice}}\"));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-IBM-Client-Id",
+								"type": "text",
+								"value": "{{gateway-client-id}}",
+								"description": "The client ID to interact with services behind the Standard Bank Gateway."
+							},
+							{
+								"key": "X-IBM-Client-Secret",
+								"value": "{{gateway-client-secret}}",
+								"type": "text",
+								"description": "The client secret to interact with services behind the Standard Bank Gateway."
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"type": "text",
+								"value": "{{$guid}}",
+								"description": "A random API interaction ID for this request. Used to trace the interaction between systems.",
+								"disabled": true
+							},
+							{
+								"key": "x-trace-id",
+								"type": "text",
+								"value": "{{$guid}}",
+								"description": "A specific trace ID for this request. Used to trace the request in our systems only."
+							},
+							{
+								"key": "customer-id",
+								"type": "text",
+								"value": "{{$guid}}",
+								"description": "This is the BPID that the products used for transaction are associated with (could be a personal BPID or business BPID with relationship to personal BPID)."
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "{{$guid}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Bird is the word, bird\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/word/frequency",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"word",
+								"frequency"
+							]
+						},
+						"description": "A single payment request with a request body required for Inter-Account Transfers."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-IBM-Client-Id",
+										"type": "text",
+										"value": "{{gateway-client-id}}",
+										"description": "The client ID to interact with services behind the Standard Bank Gateway."
+									},
+									{
+										"key": "X-IBM-Client-Secret",
+										"value": "{{gateway-client-secret}}",
+										"type": "text",
+										"description": "The client secret to interact with services behind the Standard Bank Gateway."
+									},
+									{
+										"key": "x-fapi-interaction-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "A random API interaction ID for this request. Used to trace the interaction between systems.",
+										"disabled": true
+									},
+									{
+										"key": "x-trace-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "A specific trace ID for this request. Used to trace the request in our systems only."
+									},
+									{
+										"key": "customer-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "This is the BPID that the products used for transaction are associated with (could be a personal BPID or business BPID with relationship to personal BPID)."
+									},
+									{
+										"key": "x-fapi-interaction-id",
+										"value": "{{$guid}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\": \"Bird is the word, bird\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/word/frequency",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"word",
+										"frequency"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 May 2023 10:33:53 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "2"
+						},
+						{
+							"name": "Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-IBM-Client-Id",
+										"type": "text",
+										"value": "{{gateway-client-id}}",
+										"description": "The client ID to interact with services behind the Standard Bank Gateway."
+									},
+									{
+										"key": "X-IBM-Client-Secret",
+										"value": "{{gateway-client-secret}}",
+										"type": "text",
+										"description": "The client secret to interact with services behind the Standard Bank Gateway."
+									},
+									{
+										"key": "x-fapi-interaction-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "A random API interaction ID for this request. Used to trace the interaction between systems.",
+										"disabled": true
+									},
+									{
+										"key": "x-trace-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "A specific trace ID for this request. Used to trace the request in our systems only."
+									},
+									{
+										"key": "customer-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "This is the BPID that the products used for transaction are associated with (could be a personal BPID or business BPID with relationship to personal BPID)."
+									},
+									{
+										"key": "x-fapi-interaction-id",
+										"value": "{{$guid}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"text\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/word/frequency",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"word",
+										"frequency"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "43"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 May 2023 10:34:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "There must be at least one word in the text"
+						}
+					]
+				},
+				{
+					"name": "Calculate Highest Fequency For  Word",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"randomsharedprice\", pm.variables.replaceIn(\"{{$randomPrice}}\"));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-IBM-Client-Id",
+								"type": "text",
+								"value": "{{gateway-client-id}}",
+								"description": "The client ID to interact with services behind the Standard Bank Gateway."
+							},
+							{
+								"key": "X-IBM-Client-Secret",
+								"value": "{{gateway-client-secret}}",
+								"type": "text",
+								"description": "The client secret to interact with services behind the Standard Bank Gateway."
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"type": "text",
+								"value": "{{$guid}}",
+								"description": "A random API interaction ID for this request. Used to trace the interaction between systems.",
+								"disabled": true
+							},
+							{
+								"key": "x-trace-id",
+								"type": "text",
+								"value": "{{$guid}}",
+								"description": "A specific trace ID for this request. Used to trace the request in our systems only."
+							},
+							{
+								"key": "customer-id",
+								"type": "text",
+								"value": "{{$guid}}",
+								"description": "This is the BPID that the products used for transaction are associated with (could be a personal BPID or business BPID with relationship to personal BPID)."
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "{{$guid}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \t\"text\": \"Bird is the word, bird\",\r\n        \"word\": \"is\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/word/frequency/specific",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"word",
+								"frequency",
+								"specific"
+							]
+						},
+						"description": "A single payment request with a request body required for Inter-Account Transfers."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-IBM-Client-Id",
+										"type": "text",
+										"value": "{{gateway-client-id}}",
+										"description": "The client ID to interact with services behind the Standard Bank Gateway."
+									},
+									{
+										"key": "X-IBM-Client-Secret",
+										"value": "{{gateway-client-secret}}",
+										"type": "text",
+										"description": "The client secret to interact with services behind the Standard Bank Gateway."
+									},
+									{
+										"key": "x-fapi-interaction-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "A random API interaction ID for this request. Used to trace the interaction between systems.",
+										"disabled": true
+									},
+									{
+										"key": "x-trace-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "A specific trace ID for this request. Used to trace the request in our systems only."
+									},
+									{
+										"key": "customer-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "This is the BPID that the products used for transaction are associated with (could be a personal BPID or business BPID with relationship to personal BPID)."
+									},
+									{
+										"key": "x-fapi-interaction-id",
+										"value": "{{$guid}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \t\"text\": \"Bird is the word, bird\",\r\n        \"word\": \"is\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/word/frequency/specific",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"word",
+										"frequency",
+										"specific"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 May 2023 10:35:41 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "1"
+						},
+						{
+							"name": "Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-IBM-Client-Id",
+										"type": "text",
+										"value": "{{gateway-client-id}}",
+										"description": "The client ID to interact with services behind the Standard Bank Gateway."
+									},
+									{
+										"key": "X-IBM-Client-Secret",
+										"value": "{{gateway-client-secret}}",
+										"type": "text",
+										"description": "The client secret to interact with services behind the Standard Bank Gateway."
+									},
+									{
+										"key": "x-fapi-interaction-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "A random API interaction ID for this request. Used to trace the interaction between systems.",
+										"disabled": true
+									},
+									{
+										"key": "x-trace-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "A specific trace ID for this request. Used to trace the request in our systems only."
+									},
+									{
+										"key": "customer-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "This is the BPID that the products used for transaction are associated with (could be a personal BPID or business BPID with relationship to personal BPID)."
+									},
+									{
+										"key": "x-fapi-interaction-id",
+										"value": "{{$guid}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \t\"text\": \"Bird is the word, bird\",\r\n        \"word\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/word/frequency/specific",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"word",
+										"frequency",
+										"specific"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 May 2023 10:36:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "You must at least select one word to check"
+						}
+					]
+				},
+				{
+					"name": "Caculate Highest Frequency For N Words",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"randomsharedprice\", pm.variables.replaceIn(\"{{$randomPrice}}\"));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-IBM-Client-Id",
+								"type": "text",
+								"value": "{{gateway-client-id}}",
+								"description": "The client ID to interact with services behind the Standard Bank Gateway."
+							},
+							{
+								"key": "X-IBM-Client-Secret",
+								"value": "{{gateway-client-secret}}",
+								"type": "text",
+								"description": "The client secret to interact with services behind the Standard Bank Gateway."
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"type": "text",
+								"value": "{{$guid}}",
+								"description": "A random API interaction ID for this request. Used to trace the interaction between systems.",
+								"disabled": true
+							},
+							{
+								"key": "x-trace-id",
+								"type": "text",
+								"value": "{{$guid}}",
+								"description": "A specific trace ID for this request. Used to trace the request in our systems only."
+							},
+							{
+								"key": "customer-id",
+								"type": "text",
+								"value": "{{$guid}}",
+								"description": "This is the BPID that the products used for transaction are associated with (could be a personal BPID or business BPID with relationship to personal BPID)."
+							},
+							{
+								"key": "x-fapi-interaction-id",
+								"value": "{{$guid}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \t\"text\": \"Bird is the word, bird\",\r\n        \"n\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/word/frequency/nwords",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"word",
+								"frequency",
+								"nwords"
+							]
+						},
+						"description": "A single payment request with a request body required for Inter-Account Transfers."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-IBM-Client-Id",
+										"type": "text",
+										"value": "{{gateway-client-id}}",
+										"description": "The client ID to interact with services behind the Standard Bank Gateway."
+									},
+									{
+										"key": "X-IBM-Client-Secret",
+										"value": "{{gateway-client-secret}}",
+										"type": "text",
+										"description": "The client secret to interact with services behind the Standard Bank Gateway."
+									},
+									{
+										"key": "x-fapi-interaction-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "A random API interaction ID for this request. Used to trace the interaction between systems.",
+										"disabled": true
+									},
+									{
+										"key": "x-trace-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "A specific trace ID for this request. Used to trace the request in our systems only."
+									},
+									{
+										"key": "customer-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "This is the BPID that the products used for transaction are associated with (could be a personal BPID or business BPID with relationship to personal BPID)."
+									},
+									{
+										"key": "x-fapi-interaction-id",
+										"value": "{{$guid}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \t\"text\": \"Bird is the word, bird\",\r\n        \"n\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/word/frequency/nwords",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"word",
+										"frequency",
+										"nwords"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 May 2023 10:37:19 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"word\": \"bird\",\n        \"frequency\": 2\n    }\n]"
+						},
+						{
+							"name": "Failed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "X-IBM-Client-Id",
+										"type": "text",
+										"value": "{{gateway-client-id}}",
+										"description": "The client ID to interact with services behind the Standard Bank Gateway."
+									},
+									{
+										"key": "X-IBM-Client-Secret",
+										"value": "{{gateway-client-secret}}",
+										"type": "text",
+										"description": "The client secret to interact with services behind the Standard Bank Gateway."
+									},
+									{
+										"key": "x-fapi-interaction-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "A random API interaction ID for this request. Used to trace the interaction between systems.",
+										"disabled": true
+									},
+									{
+										"key": "x-trace-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "A specific trace ID for this request. Used to trace the request in our systems only."
+									},
+									{
+										"key": "customer-id",
+										"type": "text",
+										"value": "{{$guid}}",
+										"description": "This is the BPID that the products used for transaction are associated with (could be a personal BPID or business BPID with relationship to personal BPID)."
+									},
+									{
+										"key": "x-fapi-interaction-id",
+										"value": "{{$guid}}",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \t\"text\": \"Bird is the word, bird\",\r\n        \"n\": -1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/word/frequency/nwords",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"word",
+										"frequency",
+										"nwords"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "63"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 12 May 2023 10:37:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "You must have a positive value to check the most frequent words"
+						}
+					]
+				}
+			]
+		}
+	]
+}
