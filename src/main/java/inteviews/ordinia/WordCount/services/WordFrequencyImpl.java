@@ -3,7 +3,7 @@ package inteviews.ordinia.WordCount.services;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class WordFrequencyImpl implements WordFrequency{
+public class WordFrequencyImpl implements WordFrequency {
     private final String word;
     private int frequency = 0;
 
