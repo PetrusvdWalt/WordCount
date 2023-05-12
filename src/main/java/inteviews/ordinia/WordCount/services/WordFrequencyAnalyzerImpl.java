@@ -35,8 +35,30 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
     }
 
     @Override
-    public int calculateFrequencyForWord(String text, String word) {
-        return 0;
+    public int calculateFrequencyForWord(String text, String word) throws InvalidInputException {
+        if (null == text || text.isEmpty()) {
+            throw new InvalidInputException("There must be at least one word in the text");
+        }
+
+        if (null == word || word.isEmpty()) {
+            throw new InvalidInputException("You must at least select one word to check");
+        }
+
+        if (!text.contains(word)) {
+            return 0;
+        }
+
+        //Clean the text
+        text = text.toLowerCase().trim();
+
+        //Split up with multiple separators
+        List<String> AllWords = Arrays.asList(StringUtils.split(text, SEPERATOR_CHARACTERS));
+
+        long returnValue = AllWords.stream()
+                .filter(countWord -> countWord.equals(word))
+                .count();
+
+        return (int) returnValue;
     }
 
     @Override
