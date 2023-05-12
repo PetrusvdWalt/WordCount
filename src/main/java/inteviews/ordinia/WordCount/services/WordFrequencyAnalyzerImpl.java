@@ -58,7 +58,8 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
         return (int) returnValue;
     }
 
-    public List<WordFrequencyImpl> calculateMostFrequentNWords(String text, int n) throws InvalidInputException {
+    @Override
+    public List<WordFrequency> calculateMostFrequentNWords(String text, int n) throws InvalidInputException {
         if (null == text || text.isEmpty()) {
             throw new InvalidInputException("There must be at least one word in the text");
         }
@@ -78,11 +79,11 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
                 AllWords.stream()
                         .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
 
-        ArrayList<WordFrequencyImpl> wordList = new ArrayList<>();
+        ArrayList<WordFrequency> wordList = new ArrayList<>();
 
         //Move to a word frequency
         wordCounts.forEach((key, value) -> {
-            WordFrequencyImpl wordFrequency = new WordFrequencyImpl(key, value.intValue());
+            WordFrequency wordFrequency = new WordFrequencyImpl(key, value.intValue());
             wordList.add(wordFrequency);
         });
 
