@@ -2,10 +2,12 @@ package inteviews.ordinia.WordCount.services;
 
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Service
 public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
 
     private static final String SEPERATOR_CHARACTERS = " ;:-,";
