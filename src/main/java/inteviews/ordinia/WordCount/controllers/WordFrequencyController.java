@@ -1,7 +1,10 @@
 package inteviews.ordinia.WordCount.controllers;
 
-import inteviews.ordinia.WordCount.controllers.dtos.WordFrequencyBody;
-import inteviews.ordinia.WordCount.services.InvalidInputException;
+import inteviews.ordinia.WordCount.controllers.dtos.CalculateHighestFrequencyBody;
+import inteviews.ordinia.WordCount.controllers.dtos.CalculateHighestFrequencyForWordBody;
+import inteviews.ordinia.WordCount.controllers.dtos.CalculateMostFrequentNWordsBody;
+import inteviews.ordinia.WordCount.exceptions.InvalidInputException;
+import inteviews.ordinia.WordCount.services.WordFrequency;
 import inteviews.ordinia.WordCount.services.WordFrequencyAnalyzer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 import static inteviews.ordinia.WordCount.controllers.WordFrequencyController.WORD_FREQUENCY_REQUEST_MAPPING;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -23,11 +28,32 @@ public class WordFrequencyController {
 
     @PostMapping(produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Integer> calculateHighestFrequency(
-            @RequestBody final WordFrequencyBody WordFrequencyBody
+            @RequestBody final CalculateHighestFrequencyBody CalculateHighestFrequencyBody
     ) throws InvalidInputException {
 
         return ResponseEntity
                 .ok()
-                .body(wordFrequencyAnalyzer.calculateHighestFrequency(WordFrequencyBody.getText()));
+                .body(wordFrequencyAnalyzer.calculateHighestFrequency(CalculateHighestFrequencyBody.getText()));
     }
+
+    @PostMapping(path = "specific", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Integer> calculateFrequencyForWord(
+            @RequestBody final CalculateHighestFrequencyForWordBody calculateHighestFrequencyForWordBody
+    ) throws InvalidInputException {
+
+        return ResponseEntity
+                .ok()
+                .body(wordFrequencyAnalyzer.calculateFrequencyForWord(calculateHighestFrequencyForWordBody.getText(), calculateHighestFrequencyForWordBody.getWord()));
+    }
+
+    @PostMapping(path = "nwords", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<WordFrequency>> calculateFrequencyForWord(
+            @RequestBody final CalculateMostFrequentNWordsBody calculateMostFrequentNWordsBody
+    ) throws InvalidInputException {
+
+        return ResponseEntity
+                .ok()
+                .body(wordFrequencyAnalyzer.calculateMostFrequentNWords(calculateMostFrequentNWordsBody.getText(), calculateMostFrequentNWordsBody.getN()));
+    }
+
 }

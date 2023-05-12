@@ -1,5 +1,7 @@
 package inteviews.ordinia.WordCount.services;
 
+import inteviews.ordinia.WordCount.exceptions.InvalidInputException;
+
 import java.util.List;
 
 public interface WordFrequencyAnalyzer {

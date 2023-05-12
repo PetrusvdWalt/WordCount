@@ -1,5 +1,6 @@
 package inteviews.ordinia.WordCount.services;
 
+import inteviews.ordinia.WordCount.exceptions.InvalidInputException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

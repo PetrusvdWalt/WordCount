@@ -1,6 +1,7 @@
 package inteviews.ordinia.WordCount.services;
 
 
+import inteviews.ordinia.WordCount.exceptions.InvalidInputException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
