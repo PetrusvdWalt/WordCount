@@ -115,14 +115,72 @@ public class WordFrequencyAnalyzerImplTests {
 
     // endregion CalculateFrequencyForWord Tests
 
-    // region CalculateMostFrequentNWords Tests
+    // region CalculateMostFrequentNWords Tests “The sun shines over the lake”
 
     @Test
     void testBasicCalculateMostFrequentNWordsIsWorking() throws InvalidInputException {
-        List<WordFrequency> expectedResult = wordFrequencyAnalyzerImpl.calculateMostFrequentNWords(
-                THE_SUN_SHINES_OVER_THE_LAKE_IN_THE_MORNING_IT_LOOKS_GREAT_THE_SUN_OVER_THE_LAKE_OVER, 1);
+        int expectedN = 3;
 
-        assertEquals(2, expectedResult);
+        List<WordFrequencyImpl> expectedResult = wordFrequencyAnalyzerImpl.calculateMostFrequentNWords(
+                THE_SUN_SHINES_OVER_THE_LAKE_IN_THE_MORNING_IT_LOOKS_GREAT_THE_SUN_OVER_THE_LAKE_OVER, expectedN);
+
+        assertEquals(expectedN, expectedResult.size());
+        assertEquals(5, expectedResult.stream().findFirst().get().getFrequency());
+    }
+
+    @Test
+    void testCalculateMostFrequentNWordsIsWorkingWithWordOrder() throws InvalidInputException {
+        int expectedN = 3;
+
+        List<WordFrequencyImpl> expectedResult = wordFrequencyAnalyzerImpl.calculateMostFrequentNWords(
+                THE_SUN_SHINES_OVER_THE_LAKE, expectedN);
+
+        assertEquals(expectedN, expectedResult.size());
+        assertEquals("the", expectedResult.get(0).getWord());
+        assertEquals(2, expectedResult.get(0).getFrequency());
+
+        assertEquals("lake", expectedResult.get(1).getWord());
+        assertEquals(1, expectedResult.get(1).getFrequency());
+
+        assertEquals("over", expectedResult.get(2).getWord());
+        assertEquals(1, expectedResult.get(2).getFrequency());
+    }
+
+    @Test
+    void testInvalidCalculateMostFrequentNWithNLargerThanWords() {
+        Exception exception = assertThrows(InvalidInputException.class, () -> {
+            wordFrequencyAnalyzerImpl.calculateMostFrequentNWords(THE_SUN_SHINES_OVER_THE_LAKE, 15);
+        });
+
+        assertEquals("You must select an N with more values than the collected word counts", exception.getMessage());
+
+    }
+
+    @Test
+    void testInvalidBasicCalculateMostFrequentNWordsForTextNull() {
+        Exception exception = assertThrows(InvalidInputException.class, () -> {
+            wordFrequencyAnalyzerImpl.calculateMostFrequentNWords(null, 1);
+        });
+
+        assertEquals("There must be at least one word in the text", exception.getMessage());
+    }
+
+    @Test
+    void testInvalidBasicCalculateMostFrequentNWordsForTextEmpty() {
+        Exception exception = assertThrows(InvalidInputException.class, () -> {
+            wordFrequencyAnalyzerImpl.calculateMostFrequentNWords("", 1);
+        });
+
+        assertEquals("There must be at least one word in the text", exception.getMessage());
+    }
+
+    @Test
+    void testInvalidBasicCalculateMostFrequentNWordsForNBelowOne() {
+        Exception exception = assertThrows(InvalidInputException.class, () -> {
+            wordFrequencyAnalyzerImpl.calculateMostFrequentNWords(THE_SUN_SHINES_OVER_THE_LAKE_IN_THE_MORNING_IT_LOOKS_GREAT_THE_SUN_OVER_THE_LAKE_OVER, 0);
+        });
+
+        assertEquals("You must have a positive value to check the most frequent words", exception.getMessage());
     }
 
 

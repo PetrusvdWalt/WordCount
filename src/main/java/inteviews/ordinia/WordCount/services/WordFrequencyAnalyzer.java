@@ -22,5 +22,5 @@ public interface WordFrequencyAnalyzer {
     int calculateFrequencyForWord (String text, String word) throws InvalidInputException;
 
 
-    List<WordFrequency> calculateMostFrequentNWords (String text, int n) throws InvalidInputException;
+    List<WordFrequencyImpl> calculateMostFrequentNWords (String text, int n) throws InvalidInputException;
 }

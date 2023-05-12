@@ -58,8 +58,7 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
         return (int) returnValue;
     }
 
-    @Override
-    public List<WordFrequency> calculateMostFrequentNWords(String text, int n) throws InvalidInputException {
+    public List<WordFrequencyImpl> calculateMostFrequentNWords(String text, int n) throws InvalidInputException {
         if (null == text || text.isEmpty()) {
             throw new InvalidInputException("There must be at least one word in the text");
         }
@@ -79,20 +78,25 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
                 AllWords.stream()
                         .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
 
-        ArrayList<WordFrequency> wordFrequencies = new ArrayList<>();
+        ArrayList<WordFrequencyImpl> wordList = new ArrayList<>();
 
-        wordCounts.forEach(wordCount -> {
-                    WordFrequencyImpl freugencyWord =
-                            new WordFrequencyImpl(wordCount.));
-                }
+        //Move to a word frequency
+        wordCounts.forEach((key, value) -> {
+            WordFrequencyImpl wordFrequency = new WordFrequencyImpl(key, value.intValue());
+            wordList.add(wordFrequency);
+        });
 
-                var test = wordCounts.entrySet()
-                        .stream()
-                        .sorted(Comparator.comparingInt(e -> e.getValue().intValue()))
-                        //.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+        //Sort it
+        wordList.sort(Comparator.comparing(WordFrequency::getFrequency)
+                .thenComparing(WordFrequency::getWord, Comparator.reverseOrder())
+        );
 
+        if (wordList.size() < n) {
+            throw new InvalidInputException("You must select an N with more values than the collected word counts");
+        }
 
-        return null;
+        Collections.reverse(wordList);
+
+        return wordList.subList(0, n);
     }
 }
