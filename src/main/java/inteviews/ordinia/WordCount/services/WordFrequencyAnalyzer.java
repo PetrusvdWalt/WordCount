@@ -31,7 +31,7 @@ public interface WordFrequencyAnalyzer {
      *
      * @param text Incoming text to check for the frequencies
      * @param n    How many results to return
-     * @return A lost with WordFrequncy object with the first N most frequent words in the text
+     * @return A lost with WordFrequency object with the first N most frequent words in the text
      * @throws InvalidInputException If either the text is empty, or the n is less than 0, or if n is larger than the sorted word set.
      */
     List<WordFrequency> calculateMostFrequentNWords(String text, int n) throws InvalidInputException;
