@@ -1,10 +1,17 @@
 package inteviews.ordinia.WordCount.services;
 
 import inteviews.ordinia.WordCount.exceptions.InvalidInputException;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -212,6 +219,25 @@ public class WordFrequencyAnalyzerImplTests {
         });
 
         assertEquals("You must have a positive value to check the most frequent words", exception.getMessage());
+    }
+
+    @Test
+    void testInvalidBasicCalculateMostFrequentNWordsForNWithLargeDataSet() throws InvalidInputException, IOException {
+        int expectedN = 3;
+
+        List<WordFrequency> expectedResult = wordFrequencyAnalyzerImpl.calculateMostFrequentNWords(
+                FileUtils.readFileToString(new File("src/main/resources/DonQuixote.txt"), StandardCharsets.UTF_8)
+                , expectedN);
+
+        assertEquals(expectedN, expectedResult.size());
+        assertEquals("the", expectedResult.get(0).getWord());
+        assertEquals(19042, expectedResult.get(0).getFrequency());
+
+        assertEquals("and", expectedResult.get(1).getWord());
+        assertEquals(15732, expectedResult.get(1).getFrequency());
+
+        assertEquals("to", expectedResult.get(2).getWord());
+        assertEquals(12329, expectedResult.get(2).getFrequency());
     }
 
     // endregion CalculateMostFrequentNWords Tests

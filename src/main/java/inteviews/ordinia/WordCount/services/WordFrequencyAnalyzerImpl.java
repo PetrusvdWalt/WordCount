@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Service
 public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
 
-    private static final String SEPERATOR_CHARACTERS = " ;:-,[].()";
+    private static final String SEPERATOR_CHARACTERS = " ;:-,[].()\"'“?";
 
     @Override
     public int calculateHighestFrequency(String text) throws InvalidInputException {
@@ -75,7 +75,7 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
         }
 
         //Clean the text
-        text = text.toLowerCase().replaceAll("[0-9]", "").trim();
+        text = text.toLowerCase().replaceAll("[0-9]", "").replaceAll("\\r\\n", "").trim();
 
         //Split up with multiple separators
         List<String> AllWords = Arrays.asList(StringUtils.split(text, SEPERATOR_CHARACTERS));

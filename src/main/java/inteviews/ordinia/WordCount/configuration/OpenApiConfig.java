@@ -11,8 +11,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class OpenApiConfig {
 
-    //Find the documents here: http://localhost:8080/swagger-ui/#/
-
     @Bean
     public Docket api(final ApiInfo apiInfo) {
         return new Docket(DocumentationType.OAS_30)
