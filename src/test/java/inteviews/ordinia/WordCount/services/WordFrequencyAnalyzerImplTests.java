@@ -15,6 +15,7 @@ public class WordFrequencyAnalyzerImplTests {
 
     public static final String THE_SUN_SHINES_OVER_THE_LAKE_LIKE_WITH_SUN = "The sun shines over the lake like with sun";
     public static final String THE_SUN_SHINES_OVER_THE_LAKE = "The sun shines over the lake";
+    public static final String THE_SUN_SHINES_OVER_THE_LAKE_WITH_NUMBERS = "The su11n shin23456es ov3er t3he l322ake 8954";
     public static final String THE_SUN_SHINES_OVER_THE_LAKE_IN_THE_MORNING_IT_LOOKS_GREAT_THE_SUN_OVER_THE_LAKE_OVER = "The sun shines over the lake in the morning. It looks great, the sun, over the lake, over";
     private final WordFrequencyAnalyzerImpl wordFrequencyAnalyzerImpl = new WordFrequencyAnalyzerImpl();
 
@@ -22,14 +23,16 @@ public class WordFrequencyAnalyzerImplTests {
 
     @Test
     void testBasicCalculateHighestFrequencyIsWorking() throws InvalidInputException {
-        int expectedResult = wordFrequencyAnalyzerImpl.calculateHighestFrequency(THE_SUN_SHINES_OVER_THE_LAKE);
+        int expectedResult = wordFrequencyAnalyzerImpl.calculateHighestFrequency(
+                THE_SUN_SHINES_OVER_THE_LAKE);
 
         assertEquals(2, expectedResult);
     }
 
     @Test
     void testBasicCalculateHighestFrequencyIsWorkingWithMultipleMax() throws InvalidInputException {
-        int expectedResult = wordFrequencyAnalyzerImpl.calculateHighestFrequency(THE_SUN_SHINES_OVER_THE_LAKE_LIKE_WITH_SUN);
+        int expectedResult = wordFrequencyAnalyzerImpl.calculateHighestFrequency(
+                THE_SUN_SHINES_OVER_THE_LAKE_LIKE_WITH_SUN);
 
         assertEquals(2, expectedResult);
     }
@@ -58,14 +61,24 @@ public class WordFrequencyAnalyzerImplTests {
 
     @Test
     void testSuccessCalculateFrequencyForWord() throws InvalidInputException {
-        int expectedResult = wordFrequencyAnalyzerImpl.calculateFrequencyForWord(THE_SUN_SHINES_OVER_THE_LAKE, "the");
+        int expectedResult = wordFrequencyAnalyzerImpl.calculateFrequencyForWord(
+                THE_SUN_SHINES_OVER_THE_LAKE, "the");
+
+        assertEquals(2, expectedResult);
+    }
+
+    @Test
+    void testSuccessCalculateFrequencyForWordWithNumbers() throws InvalidInputException {
+        int expectedResult = wordFrequencyAnalyzerImpl.calculateFrequencyForWord(
+                THE_SUN_SHINES_OVER_THE_LAKE_WITH_NUMBERS, "the");
 
         assertEquals(2, expectedResult);
     }
 
     @Test
     void testSuccessCalculateFrequencyForWordWithMultipleItems() throws InvalidInputException {
-        int expectedResult = wordFrequencyAnalyzerImpl.calculateFrequencyForWord(THE_SUN_SHINES_OVER_THE_LAKE_LIKE_WITH_SUN, "the");
+        int expectedResult = wordFrequencyAnalyzerImpl.calculateFrequencyForWord(
+                THE_SUN_SHINES_OVER_THE_LAKE_LIKE_WITH_SUN, "the");
 
         assertEquals(2, expectedResult);
     }
@@ -147,6 +160,24 @@ public class WordFrequencyAnalyzerImplTests {
     }
 
     @Test
+    void testCalculateMostFrequentNWordsIsWorkingWithWordOrderContainsNumbers() throws InvalidInputException {
+        int expectedN = 3;
+
+        List<WordFrequency> expectedResult = wordFrequencyAnalyzerImpl.calculateMostFrequentNWords(
+                THE_SUN_SHINES_OVER_THE_LAKE_WITH_NUMBERS, expectedN);
+
+        assertEquals(expectedN, expectedResult.size());
+        assertEquals("the", expectedResult.get(0).getWord());
+        assertEquals(2, expectedResult.get(0).getFrequency());
+
+        assertEquals("lake", expectedResult.get(1).getWord());
+        assertEquals(1, expectedResult.get(1).getFrequency());
+
+        assertEquals("over", expectedResult.get(2).getWord());
+        assertEquals(1, expectedResult.get(2).getFrequency());
+    }
+
+    @Test
     void testInvalidCalculateMostFrequentNWithNLargerThanWords() {
         Exception exception = assertThrows(InvalidInputException.class, () -> {
             wordFrequencyAnalyzerImpl.calculateMostFrequentNWords(THE_SUN_SHINES_OVER_THE_LAKE, 15);
@@ -176,7 +207,8 @@ public class WordFrequencyAnalyzerImplTests {
     @Test
     void testInvalidBasicCalculateMostFrequentNWordsForNBelowOne() {
         Exception exception = assertThrows(InvalidInputException.class, () -> {
-            wordFrequencyAnalyzerImpl.calculateMostFrequentNWords(THE_SUN_SHINES_OVER_THE_LAKE_IN_THE_MORNING_IT_LOOKS_GREAT_THE_SUN_OVER_THE_LAKE_OVER, 0);
+            wordFrequencyAnalyzerImpl.calculateMostFrequentNWords(
+                    THE_SUN_SHINES_OVER_THE_LAKE_IN_THE_MORNING_IT_LOOKS_GREAT_THE_SUN_OVER_THE_LAKE_OVER, 0);
         });
 
         assertEquals("You must have a positive value to check the most frequent words", exception.getMessage());

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Service
 public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
 
-    private static final String SEPERATOR_CHARACTERS = " ;:-,";
+    private static final String SEPERATOR_CHARACTERS = " ;:-,[].()";
 
     @Override
     public int calculateHighestFrequency(String text) throws InvalidInputException {
@@ -20,7 +20,7 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
             throw new InvalidInputException("There must be at least one word in the text");
         }
         //Clean the text
-        text = text.toLowerCase().trim();
+        text = text.toLowerCase().replaceAll("[0-9]", "").trim();
 
         //Split up with multiple separators
         List<String> AllWords = Arrays.asList(StringUtils.split(text, SEPERATOR_CHARACTERS));
@@ -44,18 +44,21 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
             throw new InvalidInputException("You must at least select one word to check");
         }
 
+        //Clean the text
+        text = text.toLowerCase().replaceAll("[0-9]", "").trim();
+        word = word.toLowerCase().trim();
+
         if (!text.contains(word)) {
             return 0;
         }
 
-        //Clean the text
-        text = text.toLowerCase().trim();
-
         //Split up with multiple separators
         List<String> AllWords = Arrays.asList(StringUtils.split(text, SEPERATOR_CHARACTERS));
 
+        String finalWord = word;
+
         long returnValue = AllWords.stream()
-                .filter(countWord -> countWord.equals(word))
+                .filter(countWord -> countWord.equals(finalWord))
                 .count();
 
         return (int) returnValue;
@@ -72,7 +75,7 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
         }
 
         //Clean the text
-        text = text.toLowerCase().trim();
+        text = text.toLowerCase().replaceAll("[0-9]", "").trim();
 
         //Split up with multiple separators
         List<String> AllWords = Arrays.asList(StringUtils.split(text, SEPERATOR_CHARACTERS));
