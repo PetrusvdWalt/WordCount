@@ -55,5 +55,4 @@ public class WordFrequencyController {
                 .ok()
                 .body(wordFrequencyAnalyzer.calculateMostFrequentNWords(calculateMostFrequentNWordsBody.getText(), calculateMostFrequentNWordsBody.getN()));
     }
-
 }

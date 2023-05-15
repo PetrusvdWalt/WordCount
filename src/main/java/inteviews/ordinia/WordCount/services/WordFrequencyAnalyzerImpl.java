@@ -20,15 +20,7 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
             throw new InvalidInputException("There must be at least one word in the text");
         }
         //Clean the text
-        text = text.toLowerCase().replaceAll("[0-9]", "").trim();
-
-        //Split up with multiple separators
-        List<String> AllWords = Arrays.asList(StringUtils.split(text, SEPARATOR_CHARACTERS));
-
-        //Count the words
-        Map<String, Long> wordCounts =
-                AllWords.stream()
-                        .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+        Map<String, Long> wordCounts = cleanAndReturnAllWordsWithCounts(text);
 
         //Get the highest value
         return Collections.max(wordCounts.values()).intValue();
@@ -45,7 +37,7 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
         }
 
         //Clean the text
-        text = text.toLowerCase().replaceAll("[0-9]", "").trim();
+        text = sanitizeAndCleanText(text);
         word = word.toLowerCase().trim();
 
         if (!text.contains(word)) {
@@ -75,15 +67,7 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
         }
 
         //Clean the text
-        text = text.toLowerCase().replaceAll("[0-9]", "").replaceAll("\\r\\n", "").trim();
-
-        //Split up with multiple separators
-        List<String> AllWords = Arrays.asList(StringUtils.split(text, SEPARATOR_CHARACTERS));
-
-        //Count the words
-        Map<String, Long> wordCounts =
-                AllWords.stream()
-                        .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+        Map<String, Long> wordCounts = cleanAndReturnAllWordsWithCounts(text);
 
         ArrayList<WordFrequency> wordList = new ArrayList<>();
 
@@ -105,5 +89,25 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
         Collections.reverse(wordList);
 
         return wordList.subList(0, n);
+    }
+
+    private Map<String, Long> cleanAndReturnAllWordsWithCounts(String text) {
+        text = sanitizeAndCleanText(text);
+
+        //Split up with multiple separators
+        List<String> AllWords = Arrays.asList(StringUtils.split(text, SEPARATOR_CHARACTERS));
+
+        //Count the words
+        return AllWords.stream()
+                .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+    }
+
+    private String sanitizeAndCleanText(String text) {
+        return text.toLowerCase()
+                //Remove numbers
+                .replaceAll("[0-9]", "")
+                //Remove special chars
+                .replaceAll("\\r\\n", "")
+                .trim();
     }
 }

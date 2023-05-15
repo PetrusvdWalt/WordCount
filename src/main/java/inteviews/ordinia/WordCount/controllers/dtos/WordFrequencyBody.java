@@ -3,7 +3,7 @@ package inteviews.ordinia.WordCount.controllers.dtos;
 import lombok.*;
 
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 public class WordFrequencyBody {
     @NonNull
     private String text;
