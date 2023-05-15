@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @Service
 public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
 
-    private static final String SEPARATOR_CHARACTERS = " ;:-,[].()\"'“?";
+    private static final String SEPARATOR_CHARACTERS = " ;:-,[].()\"'“?‘";
 
     @Override
     public int calculateHighestFrequency(String text) throws InvalidInputException {
@@ -19,6 +19,10 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
         if (null == text || text.isEmpty()) {
             throw new InvalidInputException("There must be at least one word in the text");
         }
+
+        //Clean the text
+        text = sanitizeAndCleanText(text);
+
         //Clean the text
         Map<String, Long> wordCounts = cleanAndReturnAllWordsWithCounts(text);
 
@@ -45,11 +49,11 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
         }
 
         //Split up with multiple separators
-        List<String> AllWords = Arrays.asList(StringUtils.split(text, SEPARATOR_CHARACTERS));
+        List<String> allWords = Arrays.asList(StringUtils.split(text, SEPARATOR_CHARACTERS));
 
         String finalWord = word;
 
-        long returnValue = AllWords.stream()
+        long returnValue = allWords.parallelStream()
                 .filter(countWord -> countWord.equals(finalWord))
                 .count();
 
@@ -95,10 +99,10 @@ public class WordFrequencyAnalyzerImpl implements WordFrequencyAnalyzer {
         text = sanitizeAndCleanText(text);
 
         //Split up with multiple separators
-        List<String> AllWords = Arrays.asList(StringUtils.split(text, SEPARATOR_CHARACTERS));
+        List<String> allWords = Arrays.asList(StringUtils.split(text, SEPARATOR_CHARACTERS));
 
         //Count the words
-        return AllWords.stream()
+        return allWords.parallelStream()
                 .collect(Collectors.groupingBy(e -> e, Collectors.counting()));
     }
 

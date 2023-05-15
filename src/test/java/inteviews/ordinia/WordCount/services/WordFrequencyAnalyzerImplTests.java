@@ -132,7 +132,7 @@ public class WordFrequencyAnalyzerImplTests {
 
     // endregion CalculateFrequencyForWord Tests
 
-    // region CalculateMostFrequentNWords Tests “The sun shines over the lake”
+    // region CalculateMostFrequentNWords Tests
 
     @Test
     void testBasicCalculateMostFrequentNWordsIsWorking() throws InvalidInputException {
@@ -228,13 +228,13 @@ public class WordFrequencyAnalyzerImplTests {
 
         assertEquals(expectedN, expectedResult.size());
         assertEquals("the", expectedResult.get(0).getWord());
-        assertEquals(19042, expectedResult.get(0).getFrequency());
+        assertEquals(19078, expectedResult.get(0).getFrequency());
 
         assertEquals("and", expectedResult.get(1).getWord());
-        assertEquals(15732, expectedResult.get(1).getFrequency());
+        assertEquals(15742, expectedResult.get(1).getFrequency());
 
         assertEquals("to", expectedResult.get(2).getWord());
-        assertEquals(12329, expectedResult.get(2).getFrequency());
+        assertEquals(12334, expectedResult.get(2).getFrequency());
     }
 
     // endregion CalculateMostFrequentNWords Tests
